@@ -48,8 +48,24 @@ public class UserController {
         }
         SysUser sysUser = userService.doLogin(uid);
         if (sysUser == null) {
-            jsonObject.put("success", true);
-            jsonObject.put("is_new", true);
+            clientHttpRequest = okHttp3ClientHttpRequestFactory.createRequest(URI.create("https://api.weibo.com/2/users/show.json"), HttpMethod.GET);
+            clientHttpResponse = clientHttpRequest.execute();
+            bufferedReader = new BufferedReader(new InputStreamReader(clientHttpResponse.getBody()));
+            JSONObject userObj = new JSONObject(bufferedReader.lines().collect(Collectors.joining()));
+            String usrName = uidObj.getString("screen_name");
+            if (usrName == null) {
+                usrName = "unknown";
+            }
+            SysUser registerUser = new SysUser();
+            registerUser.setUid(uid);
+            registerUser.setName(usrName);
+            if (userService.RegisterUser(registerUser)) {
+                jsonObject.put("success", true);
+                jsonObject.put("is_new", true);
+                jsonObject.put("user", registerUser);
+            }
+            jsonObject.put("success", false);
+            jsonObject.put("reason", "unknown");
             return jsonObject;
         }
         jsonObject.put("success", true);
