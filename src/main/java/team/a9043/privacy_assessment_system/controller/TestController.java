@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
@@ -19,7 +20,7 @@ import java.util.concurrent.Future;
 @RestController
 public class TestController {
     private final TestService testService;
-    private Map<String, Future<String>> TaskMap;
+    private Map<String, Future<String>> TaskMap = new HashMap<>();
 
     @Autowired
     public TestController(TestService testService) {
@@ -30,8 +31,6 @@ public class TestController {
     public String analysis() throws IOException, InterruptedException {
         String id = UUID.randomUUID().toString();
         String cmdStr_linux = "python3 /home/weibo/Spider/all_jsondata.py 1645171780";
-        File file = new File("/home/weibo/Spider/" + 1645171780);
-        file.delete();
         Process proc = Runtime.getRuntime().exec(cmdStr_linux);
         InputStream errStream = proc.getErrorStream();
         InputStream stream = proc.getInputStream();
