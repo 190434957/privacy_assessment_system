@@ -1,5 +1,8 @@
 /app_id GET 获得appid 
 ````
+/**
+* 接口功能已删除
+*/
 {
   appid: String
 }
@@ -7,7 +10,7 @@
 /user GET 获得user
 ````
 /**
-* 接口无效
+* 接口功能已删除
 */
 {
   user: uid用户
