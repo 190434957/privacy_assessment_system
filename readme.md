@@ -23,9 +23,17 @@
 /**
 * 对UID为1645171780的数据发起分析
 */
+{
+  success: Boolean 成功发起申请
+  id: String 临时查询id
+}
 ````
 /getResult GET 轮询进度
 ````
+req{
+  id: String 得到的临时查询id
+}
+res
 {
   err: Boolean 是否错误
   success: Boolean 是否发起成功
