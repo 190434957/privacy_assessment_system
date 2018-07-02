@@ -51,3 +51,16 @@ res
   ……
 }
 ````
+
+使用示例:
+先/analysis 得到id
+再/getResult?id=xxx 得到进度和结果
+
+参数说明:
+  first_data: 
+    time_list: 发布时间统计图点
+    time_nums: 发布时间统计图点
+    image: 词云base64编码 直接<img src>
+    words: 词频图参数
+    values: 词频图参数
+  second_data: lda参数，有生成和引入的代码， 在房生成的一个LDA?xxx.HTML里面 复制上去就行了
