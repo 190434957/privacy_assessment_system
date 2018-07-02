@@ -4,7 +4,7 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import team.a9043.privacy_assessment_system.service.AsyncService;
+import team.a9043.privacy_assessment_system.service.TestService;
 
 import java.io.*;
 import java.util.concurrent.ExecutionException;
@@ -12,12 +12,12 @@ import java.util.concurrent.Future;
 
 @RestController
 public class TestController {
-    private final AsyncService asyncService;
+    private final TestService testService;
     private Future<String> getJSONTask;
 
     @Autowired
-    public TestController(AsyncService asyncService) {
-        this.asyncService = asyncService;
+    public TestController(TestService testService) {
+        this.testService = testService;
     }
 
     @GetMapping("/analysis")
@@ -29,8 +29,8 @@ public class TestController {
         InputStream errStream = proc.getErrorStream();
         InputStream stream = proc.getInputStream();
 
-        asyncService.a1(errStream);
-        getJSONTask = asyncService.getJSONRes(stream);
+        testService.getJsonResErr(errStream);
+        getJSONTask = testService.getJsonRes(stream);
 
         return "{\"success\": true}";
     }
@@ -68,7 +68,7 @@ public class TestController {
 
     @GetMapping("/getInfo")
     public String getInfo() {
-        return "";
+        return testService.getUserInfo("1645171780");
     }
 
 }

@@ -6,6 +6,9 @@
 ````
 /user GET 获得user
 ````
+/**
+* 接口无效
+*/
 {
   user: uid用户
   is_new: 是否新用户
@@ -26,5 +29,14 @@
   done: Boolean 是否完成
   process: Int 1~100处理进度
   ......完成后将有所有作图参数
+}
+````
+/getInfo GET 获得用户信息
+````
+{
+  user_ID: 流水线主键
+  uid: 唯一标识符
+  Uname: 名字
+  ……
 }
 ````

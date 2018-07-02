@@ -1,20 +1,39 @@
 package team.a9043.privacy_assessment_system.service;
 
+import org.json.JSONObject;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
+import team.a9043.privacy_assessment_system.mapper.WbUserMapper;
+import team.a9043.privacy_assessment_system.pojo.WbUser;
+import team.a9043.privacy_assessment_system.pojo.WbUserExample;
 
+import javax.annotation.Resource;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 import java.util.concurrent.Future;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Service
-public class AsyncService {
+public class TestService {
+    @Resource
+    private WbUserMapper wbUserMapper;
+
+    public String getUserInfo(String uid) {
+        WbUserExample wbUserExample = new WbUserExample();
+        wbUserExample.createCriteria().andUidEqualTo(uid);
+        List<WbUser> wbUserList = wbUserMapper.selectByExample(wbUserExample);
+        if (wbUserList.size() > 0) {
+            return new JSONObject(wbUserList.get(0)).toString();
+        }
+        return "";
+    }
+
     @Async
-    public void a1(InputStream errInputStream) throws IOException {
+    public void getJsonResErr(InputStream errInputStream) throws IOException {
         ByteArrayOutputStream outErrStream = new ByteArrayOutputStream();
         byte[] buffer = new byte[1024];
         int len = -1;
@@ -24,7 +43,7 @@ public class AsyncService {
     }
 
     @Async
-    public Future<String> getJSONRes(InputStream inputStream) throws IOException {
+    public Future<String> getJsonRes(InputStream inputStream) throws IOException {
         ByteArrayOutputStream outStream = new ByteArrayOutputStream();
         Pattern pattern = Pattern.compile("<\\$(\\d+)\\$>");
         byte[] buffer = new byte[1024];
