@@ -8,10 +8,10 @@ import javax.annotation.Resource;
 
 @Service
 public class UserService {
-    @Resource
+/*    @Resource
     private SysUserMapper sysUserMapper;
 
     public SysUser doLogin(String uid) {
         return sysUserMapper.selectByPrimaryKey(uid);
-    }
+    }*/
 }

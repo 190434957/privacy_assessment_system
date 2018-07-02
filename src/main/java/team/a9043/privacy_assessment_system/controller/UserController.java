@@ -1,6 +1,5 @@
 package team.a9043.privacy_assessment_system.controller;
 
-import netscape.javascript.JSObject;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
@@ -11,20 +10,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import sun.nio.ch.Net;
 import team.a9043.privacy_assessment_system.exception.NetWorkException;
 import team.a9043.privacy_assessment_system.pojo.SysUser;
-import team.a9043.privacy_assessment_system.pojo.WbUser;
 import team.a9043.privacy_assessment_system.service.UserService;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.URI;
 import java.util.stream.Collectors;
 
 @RestController
 public class UserController {
+/*
     private UserService userService;
 
     @Autowired
@@ -61,5 +57,6 @@ public class UserController {
         jsonObject.put("user", sysUser);
         return jsonObject;
     }
+*/
 
 }
