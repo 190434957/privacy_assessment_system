@@ -22,8 +22,8 @@ public class TestController {
 
     @GetMapping("/analysis")
     public String analysis() throws IOException, InterruptedException {
-        String cmdStr_linux = "python3 /home/a9043/Spider/all_jsondata.py 1645171780";
-        File file = new File("/home/a9043/spider/" + 1645171780);
+        String cmdStr_linux = "python3 /home/weibo/Spider/all_jsondata.py 1645171780";
+        File file = new File("/home/weibo/Spider/" + 1645171780);
         file.delete();
         Process proc = Runtime.getRuntime().exec(cmdStr_linux);
         InputStream errStream = proc.getErrorStream();
@@ -47,7 +47,7 @@ public class TestController {
         if (!getJSONTask.isDone()) {
             jsonObject.put("process", 10);
             char[] chars = new char[3];
-            File file = new File("/home/a9043/spider/" + 1645171780);
+            File file = new File("/home/weibo/Spider/" + 1645171780);
             if (file.exists()) {
                 FileReader fileReader = new FileReader(file);
                 if(fileReader.read(chars) != -1) {
