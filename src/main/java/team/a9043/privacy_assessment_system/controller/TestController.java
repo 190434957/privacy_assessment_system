@@ -28,9 +28,11 @@ public class TestController {
     }
 
     @GetMapping("/analysis")
-    public String analysis() throws IOException, InterruptedException {
+    public String analysis(@RequestParam("uid") String uid) throws IOException, InterruptedException {
+        //1645171780 张亚勤
+        //1197161814 李开复
         String id = UUID.randomUUID().toString();
-        String cmdStr_linux = "python3 /home/weibo/Spider/all_jsondata.py 1645171780";
+        String cmdStr_linux = String.format("python3 /home/weibo/Spider/all_jsondata.py %s", uid);
         Process proc = Runtime.getRuntime().exec(cmdStr_linux);
         InputStream errStream = proc.getErrorStream();
         InputStream stream = proc.getInputStream();
@@ -42,7 +44,7 @@ public class TestController {
     }
 
     @GetMapping("/getResult")
-    public String getResult(@RequestParam("id") String id) throws ExecutionException, InterruptedException, IOException {
+    public String getResult(@RequestParam("id") String id, @RequestParam("uid") String uid) throws ExecutionException, InterruptedException, IOException {
         JSONObject jsonObject = new JSONObject();
         if (TaskMap.get(id) == null) {
             jsonObject.put("err", true);
@@ -53,7 +55,7 @@ public class TestController {
         if (!TaskMap.get(id).isDone()) {
             jsonObject.put("process", 10);
             char[] chars = new char[3];
-            File file = new File("/home/weibo/Spider/" + 1645171780);
+            File file = new File(String.format("/home/weibo/Spider/%s", uid));
             if (file.exists()) {
                 FileReader fileReader = new FileReader(file);
                 if (fileReader.read(chars) != -1) {
@@ -73,8 +75,8 @@ public class TestController {
     }
 
     @GetMapping("/getInfo")
-    public String getInfo() {
-        return testService.getUserInfo("1645171780");
+    public String getInfo(@RequestParam("uid") String uid) {
+        return testService.getUserInfo(uid);
     }
 
 }
