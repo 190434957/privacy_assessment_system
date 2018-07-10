@@ -1,3 +1,11 @@
+####已有分析：  
+````
+  //1645171780 张亚勤  
+  //1197161814 李开复
+````
+
+###API: 
+  
 /app_id GET 获得appid 
 ````
 /**
@@ -18,7 +26,15 @@
   success: 请求成功标志
 }
 ````
+
 /analysis GET 发起申请
+- req
+````
+{
+  uid: uid
+}
+````
+- res
 ````
 /**
 * 对UID为1645171780的数据发起分析
@@ -26,12 +42,14 @@
 {
   success: Boolean 成功发起申请
   id: String 临时查询id
+  uid: uid
 }
 ````
 /getResult GET 轮询进度
 ````
 req{
   id: String 得到的临时查询id
+  uid: uid
 }
 res
 {

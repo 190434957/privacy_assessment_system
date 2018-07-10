@@ -22,14 +22,14 @@ public class TestService {
     @Resource
     private WbUserMapper wbUserMapper;
 
-    public String getUserInfo(String uid) {
+    public JSONObject getUserInfo(String uid) {
         WbUserExample wbUserExample = new WbUserExample();
         wbUserExample.createCriteria().andUidEqualTo(uid);
         List<WbUser> wbUserList = wbUserMapper.selectByExample(wbUserExample);
         if (wbUserList.size() > 0) {
-            return new JSONObject(wbUserList.get(0)).toString();
+            return new JSONObject(wbUserList.get(0));
         }
-        return "";
+        return new JSONObject();
     }
 
     @Async

@@ -1,0 +1,21 @@
+server:
+  port: 9001
+
+spring:
+  aop:
+    auto: true
+    proxy-target-class: true
+  mvc:
+    throw-exception-if-no-handler-found: true
+  datasource:
+    name: database
+    url: jdbc:mysql://118.126.111.189:3306/weibo
+    username: root
+    password: 15520790090
+    driver-class-name: com.mysql.jdbc.Driver
+mybatis:
+  type-aliases-package: team.a9043.privacy_assessment_system.pojo
+  mapper-locations: classpath:/mapper/*.xml
+logging:
+  level:
+    team.a9043.privacy_assessment_system.mapper: debug

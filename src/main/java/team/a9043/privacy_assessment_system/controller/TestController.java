@@ -28,7 +28,7 @@ public class TestController {
     }
 
     @GetMapping("/analysis")
-    public String analysis(@RequestParam("uid") String uid) throws IOException, InterruptedException {
+    public JSONObject analysis(@RequestParam("uid") String uid) throws IOException, InterruptedException {
         //1645171780 张亚勤
         //1197161814 李开复
         String id = UUID.randomUUID().toString();
@@ -40,17 +40,21 @@ public class TestController {
         testService.getJsonResErr(errStream);
         TaskMap.put(id, testService.getJsonRes(stream));
 
-        return "{\"success\": true, \"id\": \"" + id + "\"}";
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("success", true);
+        jsonObject.put("id", id);
+        jsonObject.put("uid", uid);
+        return jsonObject;
     }
 
     @GetMapping("/getResult")
-    public String getResult(@RequestParam("id") String id, @RequestParam("uid") String uid) throws ExecutionException, InterruptedException, IOException {
+    public JSONObject getResult(@RequestParam("id") String id, @RequestParam("uid") String uid) throws ExecutionException, InterruptedException, IOException {
         JSONObject jsonObject = new JSONObject();
         if (TaskMap.get(id) == null) {
             jsonObject.put("err", true);
             jsonObject.put("success", false);
             jsonObject.put("done", true);
-            return jsonObject.toString();
+            return jsonObject;
         }
         if (!TaskMap.get(id).isDone()) {
             jsonObject.put("process", 10);
@@ -65,17 +69,17 @@ public class TestController {
             jsonObject.put("err", false);
             jsonObject.put("success", true);
             jsonObject.put("done", false);
-            return jsonObject.toString();
+            return jsonObject;
         }
         jsonObject = new JSONObject(TaskMap.get(id).get());
         jsonObject.put("success", true);
         jsonObject.put("err", false);
         jsonObject.put("done", true);
-        return jsonObject.toString();
+        return jsonObject;
     }
 
     @GetMapping("/getInfo")
-    public String getInfo(@RequestParam("uid") String uid) {
+    public JSONObject getInfo(@RequestParam("uid") String uid) {
         return testService.getUserInfo(uid);
     }
 
